@@ -1,0 +1,4 @@
+name: Lunix
+version: '${project.version}'
+main: com.github.tezvn.lunix.Lunix
+api-version: '1.20'

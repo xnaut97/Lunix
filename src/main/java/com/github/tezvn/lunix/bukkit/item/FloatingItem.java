@@ -101,17 +101,17 @@ public class FloatingItem {
      * Summon {@link FloatingItem} above the given {@link Block}.
      */
     public void summon(Block block) {
-        ItemStack clone = getItemStack().clone();
-        clone.setAmount(1);
-        String nametag = StringUtils.formatItemName(clone);
-        Item entity = block.getWorld().dropItem(block.getLocation().add(0.5, 1.2, 0.5),
-                new ItemBuilder(clone).setDisplayName(getID().toUpperCase() + " &e" + System.nanoTime()).create());
-        entity.setVelocity(new Vector(0, 0.1, 0));
-        entity.setMetadata("no_pickup", new FixedMetadataValue(TCore.getInstance(), "no_pickup"));
-        entity.setCustomNameVisible(true);
-        entity.setCustomName(nametag);
-        setItem(entity);
-        block.getWorld().playSound(block.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.3F, 0.3F);
+//        ItemStack clone = getItemStack().clone();
+//        clone.setAmount(1);
+//        String nametag = StringUtils.formatItemName(clone);
+//        Item entity = block.getWorld().dropItem(block.getLocation().add(0.5, 1.2, 0.5),
+//                new ItemBuilder(clone).setDisplayName(getID().toUpperCase() + " &e" + System.nanoTime()).create());
+//        entity.setVelocity(new Vector(0, 0.1, 0));
+//        entity.setMetadata("no_pickup", new FixedMetadataValue(TCore.getInstance(), "no_pickup"));
+//        entity.setCustomNameVisible(true);
+//        entity.setCustomName(nametag);
+//        setItem(entity);
+//        block.getWorld().playSound(block.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.3F, 0.3F);
     }
 
     /**

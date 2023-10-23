@@ -53,15 +53,15 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.cryptomorin.xseries</pattern>
-                                    <shadedPattern>com.github.tezvn.linux.shaded.xseries</shadedPattern>
+                                    <shadedPattern>com.github.tezvn.lunix.shaded.xseries</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.jetbrains.annotations</pattern>
-                                    <shadedPattern>com.github.tezvn.linux.shaded.jetbrains.annotations</shadedPattern>
+                                    <shadedPattern>com.github.tezvn.lunix.shaded.jetbrains.annotations</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.intellij.lang.annotations</pattern>
-                                    <shadedPattern>com.github.tezvn.linux.shaded.intellij.annotations</shadedPattern>
+                                    <shadedPattern>com.github.tezvn.lunix.shaded.intellij.annotations</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

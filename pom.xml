@@ -6,7 +6,7 @@
 
     <groupId>io.github.tezvn</groupId>
     <artifactId>Lunix</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0b</version>
     <packaging>jar</packaging>
 
     <name>Lunix</name>

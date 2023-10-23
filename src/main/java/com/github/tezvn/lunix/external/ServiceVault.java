@@ -1,5 +1,6 @@
 package com.github.tezvn.lunix.external;
 
+import com.github.tezvn.lunix.armor.LeatherArmor;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

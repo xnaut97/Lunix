@@ -82,9 +82,4 @@ public abstract class CommandArgument {
      */
     public abstract void playerExecute(CommandSender sender, String[] args);
 
-    /**
-     * Tab complete for sub command
-     */
-    public abstract List<String> tabComplete(CommandSender sender, String[] args);
-    
 }

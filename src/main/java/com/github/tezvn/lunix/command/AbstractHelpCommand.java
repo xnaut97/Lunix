@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-final class AbstractHelpCommand extends CommandArgument implements ConsoleExecutor {
+final class AbstractHelpCommand extends CommandArgument implements ConsoleExecutor, Completion {
 
     private final Map<String, CommandArgument> subCommands;
 

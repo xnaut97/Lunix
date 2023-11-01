@@ -38,7 +38,7 @@ final class CommandCompleter {
                     if (!c.getAliases().isEmpty())
                         matchAlias = c.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(args[0]));
                     return c.getName().equalsIgnoreCase(args[0]) || matchAlias;
-                }).findAny().ifPresent(c -> c.tabComplete(sender, args));
+                }).findAny().ifPresent(c -> ((Completion) c).tabComplete(sender, args));
             }
         }
         return Lists.newArrayList();

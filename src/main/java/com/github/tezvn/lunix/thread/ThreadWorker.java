@@ -1,4 +1,4 @@
-package com.github.tezvn.lunix.queue;
+package com.github.tezvn.lunix.thread;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;

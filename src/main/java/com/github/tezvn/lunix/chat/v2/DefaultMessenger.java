@@ -11,6 +11,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -19,11 +20,11 @@ import java.util.UUID;
 @Getter
 public class DefaultMessenger implements Messenger {
 
-    private final Lunix plugin;
+    private final Plugin plugin;
 
     private final ChatFormat chatFormat;
 
-    public DefaultMessenger(Lunix plugin) {
+    public DefaultMessenger(Plugin plugin) {
         this.plugin = plugin;
         this.chatFormat = new ChatFormat(this);
     }

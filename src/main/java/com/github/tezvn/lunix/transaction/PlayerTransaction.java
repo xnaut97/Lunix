@@ -10,7 +10,7 @@ import com.github.tezvn.lunix.menu.MenuElement;
 import com.github.tezvn.lunix.menu.SlotBuilder;
 import com.github.tezvn.lunix.menu.SlotBuilder.SlotIndex;
 import com.github.tezvn.lunix.menu.SlotBuilder.SlotType;
-import com.github.tezvn.lunix.queue.ThreadWorker;
+import com.github.tezvn.lunix.thread.ThreadWorker;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.Getter;
@@ -18,7 +18,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -29,7 +28,6 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 

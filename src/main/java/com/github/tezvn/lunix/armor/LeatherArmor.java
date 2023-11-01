@@ -4,6 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import com.github.tezvn.lunix.builder.LeatherArmorBuilder;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,6 +27,13 @@ import java.util.stream.IntStream;
 
 public class LeatherArmor {
 
+    /**
+     * -- GETTER --
+     *  Get armor part
+     *
+     * @return Armor part
+     */
+    @Getter
     private final ArmorPart part;
 
     private final ItemStack item;
@@ -46,15 +54,6 @@ public class LeatherArmor {
             damageable.setDamage(builder.damage);
             item.setItemMeta(meta);
         }
-    }
-
-    /**
-     * Get armor part
-     *
-     * @return Armor part
-     */
-    public ArmorPart getPart() {
-        return part;
     }
 
     /**

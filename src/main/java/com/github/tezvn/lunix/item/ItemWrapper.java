@@ -21,7 +21,7 @@ public class ItemWrapper {
 
 			dataOutput.close();
 			return Base64Coder.encodeLines(outputStream.toByteArray());
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 		return null;
 	}
@@ -38,7 +38,7 @@ public class ItemWrapper {
 
 			dataInput.close();
 			return i;
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 		return null;
 	}

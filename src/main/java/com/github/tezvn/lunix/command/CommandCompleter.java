@@ -18,8 +18,8 @@ final class CommandCompleter {
 
     private List<CommandArgument> getCommands(CommandSender sender, String start) {
         return this.commands.values().stream().filter(command -> {
-            if (!command.getName().startsWith(start))
-                return false;
+            if(!(command instanceof Completion)) return false;
+            if (!command.getName().startsWith(start)) return false;
             boolean hasPermission = command.getPermission() == null || !command.getPermission().isEmpty();
             return !hasPermission || sender.hasPermission(command.getPermission());
         }).collect(Collectors.toList());
@@ -33,14 +33,12 @@ final class CommandCompleter {
             if (args.length == 1)
                 return commands.stream().map(CommandArgument::getName).collect(Collectors.toList());
             else {
-                CommandArgument found = commands.stream().filter(c -> {
+                commands.stream().filter(c -> {
                     boolean matchAlias = false;
                     if (!c.getAliases().isEmpty())
                         matchAlias = c.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(args[0]));
                     return c.getName().equalsIgnoreCase(args[0]) || matchAlias;
-                }).findAny().orElse(null);
-                if (found != null)
-                    return found.tabComplete(sender, args);
+                }).findAny().ifPresent(c -> c.tabComplete(sender, args));
             }
         }
         return Lists.newArrayList();

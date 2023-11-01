@@ -7,9 +7,7 @@ import com.github.tezvn.lunix.item.ItemCreator;
 import com.github.tezvn.lunix.menu.DraggableElement;
 import com.github.tezvn.lunix.menu.Menu;
 import com.github.tezvn.lunix.menu.MenuElement;
-import com.github.tezvn.lunix.menu.SlotBuilder;
-import com.github.tezvn.lunix.menu.SlotBuilder.SlotIndex;
-import com.github.tezvn.lunix.menu.SlotBuilder.SlotType;
+import com.github.tezvn.lunix.menu.slot.*;
 import com.github.tezvn.lunix.thread.ThreadWorker;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -31,6 +29,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Getter
 public class PlayerTransaction {
 
     private final Plugin plugin;
@@ -108,6 +107,7 @@ public class PlayerTransaction {
                 .findAny().orElse(null);
     }
 
+    @Getter
     private static class TradingMenu extends Menu {
 
         private final List<SlotIndex> leftSlots = new SlotBuilder().split(1, 4, 1, 3);
@@ -135,26 +135,10 @@ public class PlayerTransaction {
             this.transaction = transaction;
             this.side = side;
             this.player = player;
-            border = new SlotBuilder.Boxed().build(SlotBuilder.BuildMode.INSIDE).stream()
+            border = new Boxed().build(BuildMode.INSIDE).stream()
                     .map(s -> s.get(SlotType.BUKKIT)).collect(Collectors.toList());
             border.addAll(Lists.newArrayList(13, 22, 31, 40));
             setup();
-        }
-
-        public PlayerTransaction getTransaction() {
-            return this.transaction;
-        }
-
-        public Player getPlayer() {
-            return player;
-        }
-
-        public List<SlotIndex> getLeftSlots() {
-            return leftSlots;
-        }
-
-        public List<SlotIndex> getRightSlots() {
-            return rightSlots;
         }
 
         @Override
@@ -170,10 +154,6 @@ public class PlayerTransaction {
                 }
                 getTransaction().cancel();
             }, 1);
-        }
-
-        public boolean isConfirmed() {
-            return confirmed;
         }
 
         private void setup() {
@@ -360,7 +340,7 @@ public class PlayerTransaction {
 
         private void dropItem(Player player, ItemStack item) {
             if (item == null) return;
-            if (player.getInventory().addItem(item).size() > 0)
+            if (!player.getInventory().addItem(item).isEmpty())
                 player.getWorld().dropItem(player.getLocation(), item);
         }
 

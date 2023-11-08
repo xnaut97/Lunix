@@ -14,9 +14,7 @@ public abstract class DelayedThread extends AbstractThread {
 
     @Override
     public final void start() {
-        if (isCurrentlyRunning())
-            return;
-        this.setRunning(true);
+        if (isRunning()) return;
         init();
         onStart();
         if (isAsync())

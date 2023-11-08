@@ -87,7 +87,11 @@ public abstract class Message {
         return this;
     }
 
-    protected void send() {
+    public void send() {
+        send0();
+    }
+
+    protected void send0() {
         getPlayers().forEach(player -> {
             if(condition != null && !condition.test(player)) {
                 if(getFailedAction() != null) getFailedAction().accept(player);

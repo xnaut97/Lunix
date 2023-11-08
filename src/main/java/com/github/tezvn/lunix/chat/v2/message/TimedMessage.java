@@ -31,7 +31,7 @@ public final class TimedMessage extends Message {
         super(messenger, MessageType.TIMED);
     }
 
-    public void start() {
+    public void send() {
         this.thread = new TimedThread(getPlugin(), isAsync(), getDelay(), getPeriod(), getTimes()) {
             @Override
             public void onRun() {
@@ -40,7 +40,7 @@ public final class TimedMessage extends Message {
                     return;
                 }
                 if(isPaused()) return;
-                send();
+                send0();
                 count++;
             }
         };

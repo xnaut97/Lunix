@@ -8,8 +8,4 @@ public class NormalMessage extends Message {
         super(messenger, MessageType.NORMAL);
     }
 
-    @Override
-    public void send() {
-        send0();
-    }
 }

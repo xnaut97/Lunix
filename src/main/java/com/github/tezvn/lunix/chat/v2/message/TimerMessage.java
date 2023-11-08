@@ -29,35 +29,12 @@ public class TimerMessage extends Message {
         super(messenger, MessageType.TIMER);
     }
 
-//    @Override
-//    public void send() {
-//        BukkitRunnable runnable = new BukkitRunnable() {
-//            @Override
-//            public void run() {
-//                if(getPlayers().isEmpty()) {
-//                    cancel();
-//                    return;
-//                }
-//                getPlayers().forEach(player -> {
-//                    if(condition != null && condition.test(player))
-//                        return;
-//                    getMessenger().sendMessage(player, getMessages().toArray(new String[0]));
-//                    if(getSuccessAction() != null)
-//                        getSuccessAction().accept(player);
-//                    send0();
-//                });
-//            }
-//        };
-//        if(isAsync()) runnable.runTaskTimerAsynchronously(getPlugin(), getDelay(), getPeriod());
-//        else runnable.runTaskTimer(getPlugin(), getDelay(), getPeriod());
-//    }
-
-    public void start() {
+    public void send() {
         if (this.timerThread == null)
             this.timerThread = new TimerThread(getMessenger().getPlugin(), isAsync(), getDelay(), getPeriod()) {
                 @Override
                 public void onRun() {
-                    send();
+                    send0();
                 }
             };
         if (!this.timerThread.isRunning())

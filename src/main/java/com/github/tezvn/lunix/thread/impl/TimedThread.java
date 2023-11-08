@@ -1,5 +1,6 @@
-package com.github.tezvn.lunix.thread;
+package com.github.tezvn.lunix.thread.impl;
 
+import com.github.tezvn.lunix.thread.ThreadType;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -14,7 +15,7 @@ public abstract class TimedThread extends TimerThread {
     public TimedThread(Plugin plugin, boolean async, long delay, long ticks, long times) {
         super(plugin, async, delay, ticks);
         this.times = times;
-        this.type = ThreadType.TIMED;
+        setThreadType(ThreadType.TIMED);
     }
 
     public void onSuccess() {
@@ -24,24 +25,17 @@ public abstract class TimedThread extends TimerThread {
     @Override
     protected void init() {
         this.runnable = new BukkitRunnable() {
-            int count = 0;
 
             @Override
             public void run() {
-                if (!isRunning()) {
-                    cancel();
-                    onStop();
-                    return;
-                }
-                if (count >= getTimes()) {
+                if (currentTimes >= getTimes()) {
                     cancel();
                     onSuccess();
                     return;
                 }
-                if (isPaused())
-                    return;
-                onTick();
-                currentTimes = count++;
+                if (isPaused()) return;
+                onRun();
+                currentTimes++;
             }
         };
     }

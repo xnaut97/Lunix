@@ -1,5 +1,6 @@
-package com.github.tezvn.lunix.thread;
+package com.github.tezvn.lunix.thread.impl;
 
+import com.github.tezvn.lunix.thread.ThreadType;
 import org.bukkit.plugin.Plugin;
 
 public abstract class DelayedThread extends AbstractThread {

@@ -1,9 +1,9 @@
 package com.github.tezvn.lunix.chat.v2.message;
 
-import com.github.tezvn.lunix.chat.v2.MessageType;
 import com.github.tezvn.lunix.chat.v2.DefaultMessenger;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -11,8 +11,11 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Getter
@@ -26,7 +29,14 @@ public abstract class Message {
 
     private final MessageType type;
 
-    private Consumer<Player> finishAction;
+    @Getter(AccessLevel.PRIVATE)
+    private Consumer<Player> successAction;
+
+    @Getter(AccessLevel.PRIVATE)
+    private Consumer<Player> failedAction;
+
+    @Getter(AccessLevel.PRIVATE)
+    private Predicate<Player> condition;
 
     private boolean async;
 
@@ -58,21 +68,13 @@ public abstract class Message {
         return this;
     }
 
-    public MessageType getType() {
-        return type;
-    }
-
-    protected Consumer<Player> getFinishAction() {
-        return finishAction;
+    protected Consumer<Player> getSuccessAction() {
+        return successAction;
     }
 
     public Message onFinish(Consumer<Player> finishAction) {
-        this.finishAction = finishAction;
+        this.successAction = finishAction;
         return this;
-    }
-
-    public boolean isAsync() {
-        return async;
     }
 
     public Message setAsync(boolean async) {
@@ -80,6 +82,20 @@ public abstract class Message {
         return this;
     }
 
-    public abstract void send();
+    public Message onSending(Predicate<Player> condition) {
+        this.condition = condition;
+        return this;
+    }
+
+    protected void send() {
+        getPlayers().forEach(player -> {
+            if(condition != null && !condition.test(player)) {
+                if(getFailedAction() != null) getFailedAction().accept(player);
+                return;
+            }
+            getMessenger().sendMessage(player, getMessages().toArray(new String[0]));
+            if(getSuccessAction() != null) getSuccessAction().accept(player);
+        });
+    }
 
 }

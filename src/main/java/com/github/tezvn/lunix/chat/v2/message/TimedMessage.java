@@ -1,9 +1,16 @@
 package com.github.tezvn.lunix.chat.v2.message;
 
-import com.github.tezvn.lunix.chat.v2.MessageType;
 import com.github.tezvn.lunix.chat.v2.DefaultMessenger;
+import com.github.tezvn.lunix.thread.impl.TimedThread;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.bukkit.scheduler.BukkitRunnable;
 
+@Getter
+@Setter
+@Accessors(chain = true)
 public final class TimedMessage extends Message {
 
     private long times;
@@ -12,56 +19,44 @@ public final class TimedMessage extends Message {
 
     private long delay;
 
+    @Setter(AccessLevel.PRIVATE)
+    private int count;
+
+    @Setter(AccessLevel.PRIVATE)
+    private boolean paused;
+
+    private TimedThread thread;
+
     private TimedMessage(DefaultMessenger messenger) {
         super(messenger, MessageType.TIMED);
     }
 
-    public long getTimes() {
-        return times;
-    }
-
-    public TimedMessage setTimes(long times) {
-        this.times = times;
-        return this;
-    }
-
-    public long getPeriod() {
-        return period;
-    }
-
-    public TimedMessage setPeriod(long period) {
-        this.period = period;
-        return this;
-    }
-
-    public long getDelay() {
-        return delay;
-    }
-
-    public TimedMessage setDelay(long delay) {
-        this.delay = delay;
-        return this;
-    }
-
-    @Override
-    public void send() {
-        BukkitRunnable runnable = new BukkitRunnable() {
-            int count = 1;
+    public void start() {
+        this.thread = new TimedThread(getPlugin(), isAsync(), getDelay(), getPeriod(), getTimes()) {
             @Override
-            public void run() {
-                if(count >= times) {
-                    cancel();
+            public void onRun() {
+                if(count >= getTimes()) {
+                    thread.stop();
                     return;
                 }
-                getPlayers().forEach(p -> {
-                    getMessenger().sendMessage(p, getMessages().toArray(new String[0]));
-                    if(getFinishAction() != null)
-                        getFinishAction().accept(p);
-                });
+                if(isPaused()) return;
+                send();
                 count++;
             }
         };
-        if(isAsync()) runnable.runTaskTimerAsynchronously(getPlugin(), getDelay(), getPeriod());
-        else runnable.runTaskTimer(getPlugin(), getDelay(), getPeriod());
+        thread.start();
     }
+
+    public void stop() {
+        if(this.thread != null) this.thread.stop();
+    }
+
+    public void pause() {
+        if(this.thread != null) this.thread.pause();
+    }
+
+    public void resume() {
+        if(this.thread != null) this.thread.resume();
+    }
+
 }

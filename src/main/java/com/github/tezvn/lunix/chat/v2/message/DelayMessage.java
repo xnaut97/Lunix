@@ -1,6 +1,5 @@
 package com.github.tezvn.lunix.chat.v2.message;
 
-import com.github.tezvn.lunix.chat.v2.MessageType;
 import com.github.tezvn.lunix.chat.v2.DefaultMessenger;
 import lombok.Getter;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -24,11 +23,7 @@ public final class DelayMessage extends Message {
         BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                getPlayers().forEach(p -> {
-                    getMessenger().sendMessage(p, getMessages().toArray(new String[0]));
-                    if(getFinishAction() != null)
-                        getFinishAction().accept(p);
-                });
+                send0();
             }
         };
         if(isAsync()) runnable.runTaskLaterAsynchronously(getPlugin(), delay);

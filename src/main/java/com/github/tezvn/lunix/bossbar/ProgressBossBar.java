@@ -1,18 +1,15 @@
 package com.github.tezvn.lunix.bossbar;
 
-import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.boss.*;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
-import java.util.List;
 
-public class ProgressBar {
+public class ProgressBossBar {
 
     @Getter(AccessLevel.PRIVATE)
     private final KeyedBossBar bossBar;
@@ -20,7 +17,7 @@ public class ProgressBar {
     @Getter
     private boolean deleted;
 
-    ProgressBar(ProgressBarBuilder builder) {
+    ProgressBossBar(ProgressBossBarBuilder builder) {
         this.bossBar = Bukkit.createBossBar(new NamespacedKey("progress-bar", builder.getKey()),
                 builder.getTitle(), builder.getColor(), builder.getStyle(), builder.getFlags().toArray(new BarFlag[0]));
         this.bossBar.setProgress(builder.getProgress());
@@ -41,28 +38,28 @@ public class ProgressBar {
         return this.bossBar.getPlayers().contains(player);
     }
 
-    public ProgressBar setTitle(String title) {
+    public ProgressBossBar setTitle(String title) {
         if(isDeleted()) return this;
 
         this.bossBar.setTitle(title.replace("&", "§"));
         return this;
     }
 
-    public ProgressBar setColor(BarColor color) {
+    public ProgressBossBar setColor(BarColor color) {
         if(isDeleted()) return this;
 
         this.bossBar.setColor(color);
         return this;
     }
 
-    public ProgressBar setStyle(BarStyle style) {
+    public ProgressBossBar setStyle(BarStyle style) {
         if(isDeleted()) return this;
 
         this.bossBar.setStyle(style);
         return this;
     }
 
-    public ProgressBar addFlags(BarFlag... flags) {
+    public ProgressBossBar addFlags(BarFlag... flags) {
         if(isDeleted()) return this;
 
         Arrays.stream(flags).forEach(flag -> {
@@ -71,7 +68,7 @@ public class ProgressBar {
         return this;
     }
 
-    public ProgressBar removeFlags(BarFlag... flags) {
+    public ProgressBossBar removeFlags(BarFlag... flags) {
         if(isDeleted()) return this;
 
         Arrays.stream(flags).forEach(flag -> {
@@ -80,56 +77,56 @@ public class ProgressBar {
         return this;
     }
 
-    public ProgressBar showPlayer(Player player) {
+    public ProgressBossBar showPlayer(Player player) {
         if(isDeleted()) return this;
 
         if (!this.bossBar.getPlayers().contains(player)) this.bossBar.addPlayer(player);
         return this;
     }
 
-    public ProgressBar hidePlayer(Player player) {
+    public ProgressBossBar hidePlayer(Player player) {
         if(isDeleted()) return this;
 
         if (this.bossBar.getPlayers().contains(player)) this.bossBar.removePlayer(player);
         return this;
     }
 
-    public ProgressBar clearPlayer() {
+    public ProgressBossBar clearPlayer() {
         if(isDeleted()) return this;
 
         this.bossBar.removeAll();
         return this;
     }
 
-    public ProgressBar setVisible(boolean visible) {
+    public ProgressBossBar setVisible(boolean visible) {
         if(isDeleted()) return this;
 
         this.bossBar.setVisible(visible);
         return this;
     }
 
-    public ProgressBar setProgress(double progress) {
+    public ProgressBossBar setProgress(double progress) {
         this.bossBar.setProgress(Math.max(0, Math.min(1, progress)));
         return this;
     }
 
-    public ProgressBar addProgress(double percent) {
+    public ProgressBossBar addProgress(double percent) {
         return setProgress(getProgress() + (Math.max(0, Math.min(100, percent)) / 100));
     }
 
-    public ProgressBar removeProgress(double percent) {
+    public ProgressBossBar removeProgress(double percent) {
         return setProgress(getProgress() - (Math.max(0, Math.min(100, percent)) / 100));
     }
 
-    public ProgressBar clearProgress() {
+    public ProgressBossBar clearProgress() {
         return setProgress(0);
     }
 
-    public ProgressBar maxProgress() {
+    public ProgressBossBar maxProgress() {
         return setProgress(1);
     }
 
-    public ProgressBar complete(Runnable action) {
+    public ProgressBossBar complete(Runnable action) {
         maxProgress();
         if(action != null) action.run();
         return this;

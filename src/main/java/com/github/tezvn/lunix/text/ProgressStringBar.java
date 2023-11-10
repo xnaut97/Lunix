@@ -1,6 +1,6 @@
 package com.github.tezvn.lunix.text;
 
-import com.github.tezvn.lunix.builder.ProgressBarBuilder;
+import com.github.tezvn.lunix.builder.ProgressStringBarBuilder;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
@@ -22,13 +22,13 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class ProgressBar {
+public class ProgressStringBar {
 
     private static final Map<UUID, Listener> listeners = Maps.newHashMap();
 
     private final String progressBar;
 
-    ProgressBar(ProgressBarBuilderImpl builder) {
+    ProgressStringBar(ProgressStringBarBuilderImpl builder) {
         float percent = (float) (builder.current / builder.total);
 
         int progressBars = (int) (builder.quantity * percent);
@@ -133,11 +133,11 @@ public class ProgressBar {
     /**
      * Create new builder
      */
-    public static ProgressBarBuilder builder() {
-        return new ProgressBarBuilderImpl();
+    public static ProgressStringBarBuilder builder() {
+        return new ProgressStringBarBuilderImpl();
     }
 
-    private static class ProgressBarBuilderImpl implements ProgressBarBuilder {
+    private static class ProgressStringBarBuilderImpl implements ProgressStringBarBuilder {
 
         private double current;
 
@@ -156,60 +156,60 @@ public class ProgressBar {
         private boolean displayPercent;
 
         @Override
-        public ProgressBar build() {
-            return new ProgressBar(this);
+        public ProgressStringBar build() {
+            return new ProgressStringBar(this);
         }
 
         @Override
-        public ProgressBarBuilder setCurrent(double current) {
+        public ProgressStringBarBuilder setCurrent(double current) {
             this.current = current;
             return this;
         }
 
         @Override
-        public ProgressBarBuilder setTotal(double total) {
+        public ProgressStringBarBuilder setTotal(double total) {
             this.total = Math.max(total, current);
             return this;
         }
 
         @Override
-        public ProgressBarBuilder setQuantity(int quantity) {
+        public ProgressStringBarBuilder setQuantity(int quantity) {
             this.quantity = quantity;
             return this;
         }
 
         @Override
-        public ProgressBarBuilder setCompletedSymbol(String completedSymbol) {
+        public ProgressStringBarBuilder setCompletedSymbol(String completedSymbol) {
             this.completedSymbol = completedSymbol;
             return this;
         }
 
         @Override
-        public ProgressBarBuilder setIncompleteSymbol(String incompleteSymbol) {
+        public ProgressStringBarBuilder setIncompleteSymbol(String incompleteSymbol) {
             this.incompleteSymbol = incompleteSymbol;
             return this;
         }
 
         @Override
-        public ProgressBarBuilder setCompletedColor(ColorMap color) {
+        public ProgressStringBarBuilder setCompletedColor(ColorMap color) {
             this.completeColor = color;
             return this;
         }
 
         @Override
-        public ProgressBarBuilder setIncompleteColor(ChatColor color) {
+        public ProgressStringBarBuilder setIncompleteColor(ChatColor color) {
             this.incompleteColor = color.getName();
             return this;
         }
 
         @Override
-        public ProgressBarBuilder setIncompleteColor(String hex) {
+        public ProgressStringBarBuilder setIncompleteColor(String hex) {
             this.incompleteColor = hex;
             return this;
         }
 
         @Override
-        public ProgressBarBuilder setDisplayPercent(boolean displayPercent) {
+        public ProgressStringBarBuilder setDisplayPercent(boolean displayPercent) {
             this.displayPercent = displayPercent;
             return this;
         }

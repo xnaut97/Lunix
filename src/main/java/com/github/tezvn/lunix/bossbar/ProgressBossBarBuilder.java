@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @Getter(AccessLevel.PROTECTED)
 @Accessors(chain = true)
-public class ProgressBarBuilder {
+public class ProgressBossBarBuilder {
 
     private String title;
 
@@ -36,10 +36,10 @@ public class ProgressBarBuilder {
 
     private String key = RandomID.of(4).generate();
 
-    public ProgressBarBuilder() {
+    public ProgressBossBarBuilder() {
     }
 
-    public ProgressBarBuilder addFlags(BarFlag... flags) {
+    public ProgressBossBarBuilder addFlags(BarFlag... flags) {
         Arrays.stream(flags).forEach(flag -> {
             if(this.flags.contains(flag)) return;
             this.flags.add(flag);
@@ -47,7 +47,7 @@ public class ProgressBarBuilder {
         return this;
     }
 
-    public ProgressBarBuilder addPlayers(Player... players) {
+    public ProgressBossBarBuilder addPlayers(Player... players) {
         Arrays.stream(players).forEach(player -> {
             if(this.players.contains(player)) return;
             this.players.add(player);
@@ -55,13 +55,13 @@ public class ProgressBarBuilder {
         return this;
     }
 
-    public ProgressBarBuilder setProgress(double progress) {
+    public ProgressBossBarBuilder setProgress(double progress) {
         this.progress = Math.max(0, Math.min(1, progress));
         return this;
     }
 
-    public ProgressBar build() {
-        return new ProgressBar(this);
+    public ProgressBossBar build() {
+        return new ProgressBossBar(this);
     }
 
 }

@@ -6,10 +6,11 @@ import java.math.RoundingMode;
 public class MathUtils {
 
 	public static double getPercent(int number1, int number2) {
-		if(number1 < number2) {
-			return (number1*100.0f)/number2;
-		}
-		return (number2*100.0f)/number1;
+		return roundDouble(number1 < number2 ? (number1*100.0f)/number2: (number2*100.0f)/number1);
+	}
+
+	public static double getPercent(double number1, double number2) {
+		return roundDouble(number1 < number2 ? (number1*100.0f)/number2: (number2*100.0f)/number1);
 	}
 
 	public static double roundDouble(double amount) {

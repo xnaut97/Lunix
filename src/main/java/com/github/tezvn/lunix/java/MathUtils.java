@@ -5,6 +5,16 @@ import java.math.RoundingMode;
 
 public class MathUtils {
 
+	public static double findPercent(double start,double end,double val){
+		end = end - start;
+		val = val - start;
+		return((1-(val/end))*100)/100;
+	}
+
+	public static double toNumber(double start, double end, double percent) {
+		return start + percent * (end -start);
+	}
+
 	public static double getPercent(int number1, int number2) {
 		return roundDouble(number1 < number2 ? (number1*100.0f)/number2: (number2*100.0f)/number1);
 	}

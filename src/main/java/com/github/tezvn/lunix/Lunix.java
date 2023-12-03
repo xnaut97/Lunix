@@ -1,7 +1,9 @@
 package com.github.tezvn.lunix;
 
+import com.comphenix.packetwrapper.wrappers.play.clientbound.WrapperPlayServerAnimation;
 import com.comphenix.packetwrapper.wrappers.play.clientbound.WrapperPlayServerBlockBreakAnimation;
 import com.comphenix.packetwrapper.wrappers.play.clientbound.WrapperPlayServerEntityEquipment;
+import com.comphenix.packetwrapper.wrappers.play.serverbound.WrapperPlayClientArmAnimation;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
@@ -31,6 +33,8 @@ import dev.lone.itemsadder.api.ItemsAdder;
 import lombok.Getter;
 import net.minecraft.network.protocol.game.PacketPlayOutSetSlot;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
@@ -38,6 +42,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -180,55 +185,70 @@ public class Lunix extends JavaPlugin implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         UUID playerUUID = player.getUniqueId();
-
-        if (player.getInventory().getHeldItemSlot() == 0) {
-            // Người chơi đang giữ phím số 1
-            player.sendMessage("Bạn đang giữ phím số 1!");
-        }
-
-        if (event.getItem() != null && event.getItem().getType() == Material.BLAZE_ROD) {
-            if (event.getAction().toString().contains("RIGHT")) {
-                // Người chơi giữ chuột phải, đánh dấu là đang giữ
-                rightClickTimestamp.put(playerUUID, System.currentTimeMillis());
-                if (task.containsKey(playerUUID)) {
-                    task.get(playerUUID).cancel();
+        Action action = event.getAction();
+        switch (action) {
+            case LEFT_CLICK_AIR, LEFT_CLICK_BLOCK -> {
+                player.sendMessage("Left click");
+                long timestamp = rightClickTimestamp.getOrDefault(playerUUID, -1L);
+                if(timestamp != -1) {
+                    System.out.println(System.currentTimeMillis()-timestamp);
                 }
-
-                if (!particle.containsKey(playerUUID)) {
-                    this.particle.put(playerUUID, new ParabolaEffect(this));
-                }
-
-                BukkitRunnable runnable = new BukkitRunnable() {
-                    int count = 0;
-
-                    @Override
-                    public void run() {
-                        if (count >= 5) {
-                            if (rightClickTimestamp.getOrDefault(playerUUID, -1L) != -1) {
-                                // Lấy vị trí đang nhắm chọn
-                                Location targetLocation = bombThrowLocations.get(playerUUID);
-                                if (targetLocation != null) {
-                                    // Thực hiện công việc của bạn, ví dụ: tạo một trái bom
-                                    player.sendMessage("Quăng trái bom tại: " + targetLocation.toString());
-                                    Objects.requireNonNull(targetLocation.getWorld()).createExplosion(targetLocation, 1);
-
-                                    // Sau khi sử dụng, loại bỏ vị trí đã chọn và đặt lại trạng thái chuột phải
-                                    bombThrowLocations.remove(playerUUID);
-                                    rightClickTimestamp.remove(playerUUID);
-                                    task.remove(playerUUID);
-                                    particle.remove(playerUUID);
-                                    cancel();
-                                }
-                            }
-                            return;
-                        }
-                        count++;
-                    }
-                };
-                runnable.runTaskTimer(this, 0, 1);
-                task.put(playerUUID, runnable);
+                this.rightClickTimestamp.put(playerUUID, System.currentTimeMillis());
+//                Block block = player.getTargetBlock(null, 5);
+//                Location location = block.getLocation();
+//                Objects.requireNonNull(location.getWorld()).spawnParticle(Particle.SMOKE_NORMAL, location, 1);
+//                WrapperPlayServerAnimation animation = new WrapperPlayServerAnimation();
+//                animation.setAction(WrapperPlayServerAnimation.Animation.SWING_MAIN_ARM);
+//                animation.setId(player.getEntityId());
+//                animation.sendPacket(player);
             }
         }
+
+
+
+//        if (event.getItem() != null && event.getItem().getType() == Material.BLAZE_ROD) {
+//            if (event.getAction().toString().contains("RIGHT")) {
+//                // Người chơi giữ chuột phải, đánh dấu là đang giữ
+//                rightClickTimestamp.put(playerUUID, System.currentTimeMillis());
+//                if (task.containsKey(playerUUID)) {
+//                    task.get(playerUUID).cancel();
+//                }
+//
+//                if (!particle.containsKey(playerUUID)) {
+//                    this.particle.put(playerUUID, new ParabolaEffect(this));
+//                }
+//
+//                BukkitRunnable runnable = new BukkitRunnable() {
+//                    int count = 0;
+//
+//                    @Override
+//                    public void run() {
+//                        if (count >= 5) {
+//                            if (rightClickTimestamp.getOrDefault(playerUUID, -1L) != -1) {
+//                                // Lấy vị trí đang nhắm chọn
+//                                Location targetLocation = bombThrowLocations.get(playerUUID);
+//                                if (targetLocation != null) {
+//                                    // Thực hiện công việc của bạn, ví dụ: tạo một trái bom
+//                                    player.sendMessage("Quăng trái bom tại: " + targetLocation.toString());
+//                                    Objects.requireNonNull(targetLocation.getWorld()).createExplosion(targetLocation, 1);
+//
+//                                    // Sau khi sử dụng, loại bỏ vị trí đã chọn và đặt lại trạng thái chuột phải
+//                                    bombThrowLocations.remove(playerUUID);
+//                                    rightClickTimestamp.remove(playerUUID);
+//                                    task.remove(playerUUID);
+//                                    particle.remove(playerUUID);
+//                                    cancel();
+//                                }
+//                            }
+//                            return;
+//                        }
+//                        count++;
+//                    }
+//                };
+//                runnable.runTaskTimer(this, 0, 1);
+//                task.put(playerUUID, runnable);
+//            }
+//        }
     }
 
     private final Map<UUID, BukkitRunnable> runnableMap = Maps.newHashMap();
@@ -249,21 +269,21 @@ public class Lunix extends JavaPlugin implements Listener {
         UUID playerUUID = player.getUniqueId();
 
         // Kiểm tra xem người chơi có đang giữ chuột phải không
-        if (rightClickTimestamp.containsKey(playerUUID)) {
-            // Lấy vị trí đang nhắm chọn (có thể là vị trí mà đang nhắm đến trong mắt người chơi)
-            Location previousLocation = bombThrowLocations.getOrDefault(playerUUID, null);
-            Location targetLocation = player.getTargetBlock(null, 10).getLocation();
-            Location newLocation = Objects.requireNonNull(targetLocation.getWorld())
-                    .getHighestBlockAt(targetLocation).getLocation();
-            ParabolaEffect parabolaEffect = particle.get(playerUUID);
-
-            bombThrowLocations.put(playerUUID, newLocation);
-            parabolaEffect.displayParabola(player.getLocation(), newLocation);
-
-            event.getPlayer().sendBlockChange(newLocation, Material.RED_WOOL.createBlockData());
-            if (previousLocation != null && !previousLocation.equals(newLocation))
-                event.getPlayer().sendBlockChange(previousLocation, previousLocation.getBlock().getBlockData());
-        }
+//        if (rightClickTimestamp.containsKey(playerUUID)) {
+//            // Lấy vị trí đang nhắm chọn (có thể là vị trí mà đang nhắm đến trong mắt người chơi)
+//            Location previousLocation = bombThrowLocations.getOrDefault(playerUUID, null);
+//            Location targetLocation = player.getTargetBlock(null, 10).getLocation();
+//            Location newLocation = Objects.requireNonNull(targetLocation.getWorld())
+//                    .getHighestBlockAt(targetLocation).getLocation();
+//            ParabolaEffect parabolaEffect = particle.get(playerUUID);
+//
+//            bombThrowLocations.put(playerUUID, newLocation);
+//            parabolaEffect.displayParabola(player.getLocation(), newLocation);
+//
+//            event.getPlayer().sendBlockChange(newLocation, Material.RED_WOOL.createBlockData());
+//            if (previousLocation != null && !previousLocation.equals(newLocation))
+//                event.getPlayer().sendBlockChange(previousLocation, previousLocation.getBlock().getBlockData());
+//        }
     }
 
     @EventHandler
@@ -271,7 +291,7 @@ public class Lunix extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         this.jumps.putIfAbsent(event.getPlayer(), 30);
         MessageUtils.sendMessage(event.getPlayer(), "&aBạn được tặng 30 điểm nhảy!");
-        if(worldGeneration.getWorld() != null)
+        if (worldGeneration.getWorld() != null)
             player.teleport(worldGeneration.getWorld().getSpawnLocation());
     }
 
@@ -320,11 +340,21 @@ public class Lunix extends JavaPlugin implements Listener {
     }
 
     @EventHandler
+    public void playerAnimtion(PlayerAnimationEvent event) {
+        event.setCancelled(true);
+    }
+
+    @EventHandler
     public void onPlayerSneak(PlayerToggleSneakEvent event) {
         Player player = event.getPlayer();
-        Vector push = player.getLocation().clone().getDirection().multiply(1.5);
-        player.setWalkSpeed(1);
-        Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> player.setWalkSpeed(0.2f), 100);
+//        WrapperPlayServerAnimation animation = new WrapperPlayServerAnimation();
+//        animation.setAction(WrapperPlayServerAnimation.Animation.SWING_MAIN_ARM);
+//        animation.setId(player.getEntityId());
+//        animation.sendPacket(player);
+//        player.swingMainHand();
+//        Vector push = player.getLocation().clone().getDirection().multiply(1.5);
+//        player.setWalkSpeed(1);
+//        Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> player.setWalkSpeed(0.2f), 100);
 //        spawnFilledSemicircle(player, 4);
 //        XParticle.circle(2, 25, ParticleDisplay.colored(
 //                player.getLocation().clone().add(0, 1, 0), java.awt.Color.RED, 1f));

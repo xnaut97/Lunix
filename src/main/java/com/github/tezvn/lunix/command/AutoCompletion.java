@@ -4,7 +4,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public interface Completion {
+public interface AutoCompletion {
 
     List<String> tabComplete(CommandSender sender, String[] args);
 

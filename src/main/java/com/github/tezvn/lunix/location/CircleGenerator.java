@@ -15,7 +15,6 @@ import org.bukkit.Location;
  * 
  * @author AntivirusDev
  * 
- *         <h1>Legal:<br>
  *         This work is licensed under the Creative Commons Zero License
  *         (http://creativecommons.org/publicdomain/zero/1.0/) Feel free to copy
  *         and store this work in its entirety, distribute it, modify it, and
@@ -25,7 +24,7 @@ import org.bukkit.Location;
  *         This work is provided 'as is' with no warranties made or liabilities
  *         assumed, express or implied. The author disclaims all implied
  *         warranties, including any warranty of merchantability and warranty of
- *         fitness for a particular purpose.</h1>
+ *         fitness for a particular purpose.
  *
  */
 public class CircleGenerator {

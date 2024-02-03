@@ -136,7 +136,7 @@ public abstract class AbstractCommand extends BukkitCommand {
     /**
      * Add sub command to your main command
      *
-     * @param commands Sub command to add
+     * @param commands Sub command to add.
      */
     public AbstractCommand addArguments(CommandArgument... commands) {
         for (CommandArgument command : commands) {

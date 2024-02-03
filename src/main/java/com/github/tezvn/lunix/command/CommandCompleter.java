@@ -18,7 +18,7 @@ final class CommandCompleter {
 
     private List<CommandArgument> getCommands(CommandSender sender, String start) {
         return this.commands.values().stream().filter(command -> {
-            if(!(command instanceof Completion)) return false;
+            if(!(command instanceof AutoCompletion)) return false;
             if (!command.getName().startsWith(start)) return false;
             boolean hasPermission = command.getPermission() == null || !command.getPermission().isEmpty();
             return !hasPermission || sender.hasPermission(command.getPermission());
@@ -38,7 +38,7 @@ final class CommandCompleter {
                     if (!c.getAliases().isEmpty())
                         matchAlias = c.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(args[0]));
                     return c.getName().equalsIgnoreCase(args[0]) || matchAlias;
-                }).findAny().ifPresent(c -> ((Completion) c).tabComplete(sender, args));
+                }).findAny().ifPresent(c -> ((AutoCompletion) c).tabComplete(sender, args));
             }
         }
         return Lists.newArrayList();

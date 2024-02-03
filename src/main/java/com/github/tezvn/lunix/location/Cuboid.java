@@ -553,8 +553,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	/**
 	 * Check if the Cuboid contains only blocks of the given type
 	 * 
-	 * @param blockId
-	 *            - The block ID to check for
+	 * @param material - Material to check for
 	 * @return true if this Cuboid contains only blocks of the given type
 	 */
 	public boolean containsOnly(Material material) {

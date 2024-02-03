@@ -97,6 +97,10 @@
                                     <shadedPattern>com.github.tezvn.lunix.shaded.lombok.Class50.lombok</shadedPattern>
                                 </relocation>
                                 <relocation>
+                                    <pattern>SCL.lombok</pattern>
+                                    <shadedPattern>com.github.tezvn.lunix.shaded.lombok.SCL.lombok</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>dev.dejvokep.boostedyaml</pattern>
                                     <!-- Replace this -->
                                     <shadedPattern>com.github.tezvn.lunix.shaded.boostedyaml</shadedPattern>
@@ -104,6 +108,14 @@
                                 <relocation>
                                     <pattern>de.tr7zw</pattern>
                                     <shadedPattern>com.github.tezvn.lunix.shaded.de.tr7zw</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.annotation</pattern>
+                                    <shadedPattern>com.github.tezvn.lunix.shaded.javax.annotation</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>comphenix.packetwrapper</pattern>
+                                    <shadedPattern>com.github.tezvn.lunix.shaded.comphenix.packetwrapper</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

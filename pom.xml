@@ -89,16 +89,8 @@
                                     <shadedPattern>com.github.tezvn.lunix.shaded.intellij.annotations</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>lombok</pattern>
-                                    <shadedPattern>com.github.tezvn.lunix.shaded.lombok.lombok</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>Class50.lombok</pattern>
-                                    <shadedPattern>com.github.tezvn.lunix.shaded.lombok.Class50.lombok</shadedPattern>
-                                </relocation>
-                                <relocation>
                                     <pattern>SCL.lombok</pattern>
-                                    <shadedPattern>com.github.tezvn.lunix.shaded.lombok.SCL.lombok</shadedPattern>
+                                    <shadedPattern>com.github.tezvn.lunix.shaded.lombok</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>dev.dejvokep.boostedyaml</pattern>
@@ -114,7 +106,7 @@
                                     <shadedPattern>com.github.tezvn.lunix.shaded.javax.annotation</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>comphenix.packetwrapper</pattern>
+                                    <pattern>com.comphenix.packetwrapper</pattern>
                                     <shadedPattern>com.github.tezvn.lunix.shaded.comphenix.packetwrapper</shadedPattern>
                                 </relocation>
                             </relocations>
@@ -202,6 +194,9 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>plugin.yml</exclude>
+                </excludes>
             </resource>
         </resources>
     </build>

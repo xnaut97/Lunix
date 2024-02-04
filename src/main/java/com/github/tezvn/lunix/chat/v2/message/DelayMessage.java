@@ -1,5 +1,6 @@
 package com.github.tezvn.lunix.chat.v2.message;
 
+import com.github.tezvn.lunix.api.builder.GradientBuilder;
 import com.github.tezvn.lunix.chat.v2.DefaultMessenger;
 import lombok.Getter;
 import org.bukkit.scheduler.BukkitRunnable;

@@ -89,8 +89,12 @@
                                     <shadedPattern>com.github.tezvn.lunix.shaded.intellij.annotations</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>SCL.lombok</pattern>
+                                    <pattern>lombok</pattern>
                                     <shadedPattern>com.github.tezvn.lunix.shaded.lombok</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>SCL.lombok</pattern>
+                                    <shadedPattern>com.github.tezvn.lunix.shaded.lombok.SCL</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>dev.dejvokep.boostedyaml</pattern>

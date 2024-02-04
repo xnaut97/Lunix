@@ -1,6 +1,6 @@
-package com.github.tezvn.lunix.chat.v2.title.animated;
+package com.github.tezvn.lunix.api.chat.title;
 
-import com.github.tezvn.lunix.chat.v2.title.Title;
+import com.github.tezvn.lunix.chat.v2.title.animated.TitleAnimation;
 
 public interface AnimatedTitle extends Title {
     

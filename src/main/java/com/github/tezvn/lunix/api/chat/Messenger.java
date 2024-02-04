@@ -1,8 +1,10 @@
-package com.github.tezvn.lunix.chat.v2.message;
+package com.github.tezvn.lunix.api.chat;
 
 import com.github.tezvn.lunix.chat.v2.ChatFormat;
-import com.github.tezvn.lunix.chat.v2.title.Title;
-import com.github.tezvn.lunix.chat.v2.title.animated.AnimatedTitle;
+import com.github.tezvn.lunix.chat.v2.message.Message;
+import com.github.tezvn.lunix.chat.v2.message.MessageType;
+import com.github.tezvn.lunix.api.chat.title.Title;
+import com.github.tezvn.lunix.api.chat.title.AnimatedTitle;
 import com.github.tezvn.lunix.chat.v2.title.animated.TitleAnimation;
 
 public interface Messenger {

@@ -1,11 +1,11 @@
 package com.github.tezvn.lunix.chat.v2;
 
 import com.github.tezvn.lunix.chat.v2.message.MessageType;
-import com.github.tezvn.lunix.chat.v2.message.Messenger;
+import com.github.tezvn.lunix.api.chat.Messenger;
 import com.github.tezvn.lunix.chat.v2.mode.CapitalizeMode;
 import com.github.tezvn.lunix.chat.v2.message.Message;
-import com.github.tezvn.lunix.chat.v2.title.Title;
-import com.github.tezvn.lunix.chat.v2.title.animated.AnimatedTitle;
+import com.github.tezvn.lunix.api.chat.title.Title;
+import com.github.tezvn.lunix.api.chat.title.AnimatedTitle;
 import com.github.tezvn.lunix.chat.v2.title.BaseTitle;
 import com.github.tezvn.lunix.chat.v2.title.animated.DefaultAnimatedTitle;
 import com.github.tezvn.lunix.chat.v2.title.animated.TitleAnimation;

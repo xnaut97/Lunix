@@ -1,10 +1,8 @@
 package com.github.tezvn.lunix.color;
 
-import com.google.common.collect.Lists;
+import com.github.tezvn.lunix.api.builder.GradientBuilder;
 import lombok.Getter;
 import org.bukkit.ChatColor;
-
-import java.util.List;
 
 @Getter
 public abstract class GradientBuilderImpl<T> implements GradientBuilder<T> {

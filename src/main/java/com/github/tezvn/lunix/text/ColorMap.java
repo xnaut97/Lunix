@@ -1,6 +1,6 @@
 package com.github.tezvn.lunix.text;
 
-import com.github.tezvn.lunix.builder.ColorMapBuilder;
+import com.github.tezvn.lunix.api.builder.ColorMapBuilder;
 import com.github.tezvn.lunix.java.IntRange;
 import net.md_5.bungee.api.ChatColor;
 

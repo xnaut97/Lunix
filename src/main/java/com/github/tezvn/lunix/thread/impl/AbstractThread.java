@@ -1,6 +1,6 @@
 package com.github.tezvn.lunix.thread.impl;
 
-import com.github.tezvn.lunix.thread.DefaultThread;
+import com.github.tezvn.lunix.api.thread.DefaultThread;
 import com.github.tezvn.lunix.thread.ThreadType;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,5 +1,6 @@
 package com.github.tezvn.lunix.chat.v2.title;
 
+import com.github.tezvn.lunix.api.chat.title.Title;
 import com.github.tezvn.lunix.chat.v2.ChatFormat;
 import com.github.tezvn.lunix.chat.v2.DefaultMessenger;
 import com.google.common.collect.Sets;

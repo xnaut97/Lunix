@@ -1,4 +1,4 @@
-package com.github.tezvn.lunix.builder;
+package com.github.tezvn.lunix.api.builder;
 
 import com.github.tezvn.lunix.armor.ArmorPart;
 import com.github.tezvn.lunix.armor.LeatherArmor;

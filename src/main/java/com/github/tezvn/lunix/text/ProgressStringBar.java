@@ -1,6 +1,6 @@
 package com.github.tezvn.lunix.text;
 
-import com.github.tezvn.lunix.builder.ProgressStringBarBuilder;
+import com.github.tezvn.lunix.api.builder.ProgressStringBarBuilder;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;

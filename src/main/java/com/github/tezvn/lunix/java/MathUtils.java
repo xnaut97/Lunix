@@ -5,42 +5,41 @@ import java.math.RoundingMode;
 
 public class MathUtils {
 
-	public static double findPercent(double start,double end,double val){
+	/**
+	 * Find percentage between two ranges
+	 */
+	public static BigDecimal findPercentInRange(double start, double end, double val) {
 		end = end - start;
 		val = val - start;
-		return((1-(val/end))*100)/100;
+		double value = ((1-(val/end))*100)/100;
+		return new BigDecimal(value);
 	}
 
-	public static double toNumber(double start, double end, double percent) {
-		return start + percent * (end -start);
+	/**
+	 * Convert percentage to numeric between two ranges
+	 */
+	public static BigDecimal fromPercentToNumber(double start, double end, double percent) {
+		return new BigDecimal(start + percent * (end -start));
 	}
 
-	public static double getPercent(int number1, int number2) {
-		return roundDouble(number1 < number2 ? (number1*100.0f)/number2: (number2*100.0f)/number1);
+	public static BigDecimal getPercent(double number1, double number2) {
+		return getPercent(number1, number2, RoundingMode.HALF_UP, 1);
 	}
 
-	public static double getPercent(double number1, double number2) {
-		return roundDouble(number1 < number2 ? (number1*100.0f)/number2: (number2*100.0f)/number1);
+	public static BigDecimal getPercent(double number1, double number2, RoundingMode roundMode, int scale) {
+		return BigDecimal.valueOf(number1 < number2 ? (number1 * 100.0f) / number2 : (number2 * 100.0f) / number1).setScale(scale, roundMode);
 	}
 
 	public static double roundDouble(double amount) {
 		return new BigDecimal(amount).setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
 
-	public static double roundDouble(double amount, int scale) {
+	public static double round(double amount, int scale) {
 		return new BigDecimal(amount).setScale(scale, RoundingMode.HALF_UP).doubleValue();
 	}
 
 	public static int roundUp(double amount) {
 		return new BigDecimal(amount).setScale(2, RoundingMode.FLOOR).intValue();
-	}
-	
-	public static int parseInt(String str) {
-		try {
-			return Integer.parseInt(str);
-		} catch (Exception e) {
-			return eval(str);
-		} 
 	}
 	
 	public static int eval(final String str) {

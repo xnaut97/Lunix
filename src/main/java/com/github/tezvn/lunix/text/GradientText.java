@@ -1,9 +1,8 @@
 package com.github.tezvn.lunix.text;
 
-import com.github.tezvn.lunix.builder.GradientTextBuilder;
+import com.github.tezvn.lunix.api.builder.GradientTextBuilder;
 import com.github.tezvn.lunix.color.*;
-import jline.internal.Preconditions;
-import org.bukkit.ChatColor;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +73,7 @@ public class GradientText {
         return color.startsWith("#") ? ColorSet.fromHex(color) : ColorContainer.getColor(color);
     }
 
+    @Getter
     private static class GradientTextBuilderImpl extends GradientBuilderImpl<GradientText> implements GradientTextBuilder {
 
         private String text;
@@ -81,10 +81,6 @@ public class GradientText {
         @Override
         public GradientText build() {
             return new GradientText(this);
-        }
-
-        public String getText() {
-            return text;
         }
 
         @Override

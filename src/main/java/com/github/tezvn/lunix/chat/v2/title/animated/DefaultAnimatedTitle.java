@@ -1,5 +1,6 @@
 package com.github.tezvn.lunix.chat.v2.title.animated;
 
+import com.github.tezvn.lunix.api.chat.title.AnimatedTitle;
 import com.github.tezvn.lunix.chat.v2.DefaultMessenger;
 import com.github.tezvn.lunix.chat.v2.title.BaseTitle;
 import lombok.Getter;

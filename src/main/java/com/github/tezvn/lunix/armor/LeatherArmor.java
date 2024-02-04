@@ -1,7 +1,7 @@
 package com.github.tezvn.lunix.armor;
 
 import com.cryptomorin.xseries.XMaterial;
-import com.github.tezvn.lunix.builder.LeatherArmorBuilder;
+import com.github.tezvn.lunix.api.builder.LeatherArmorBuilder;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.Getter;

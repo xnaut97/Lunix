@@ -54,6 +54,8 @@ public class ItemCreator implements Cloneable {
     public ItemCreator setTexture(String texture) {
         if (!(this.meta instanceof SkullMeta))
             return this;
+        if(texture == null || texture.isEmpty())
+            return this;
         this.texture = texture;
         return this;
     }

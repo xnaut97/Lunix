@@ -1,5 +1,6 @@
 package com.github.tezvn.lunix.command;
 
+import com.github.tezvn.lunix.api.command.ConsoleExecutor;
 import com.google.common.collect.Maps;
 import lombok.Getter;
 import lombok.Setter;

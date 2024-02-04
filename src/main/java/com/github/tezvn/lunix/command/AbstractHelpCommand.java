@@ -1,5 +1,7 @@
 package com.github.tezvn.lunix.command;
 
+import com.github.tezvn.lunix.api.command.AutoCompletion;
+import com.github.tezvn.lunix.api.command.ConsoleExecutor;
 import com.github.tezvn.lunix.text.ClickableText;
 import com.google.common.collect.Lists;
 import net.md_5.bungee.api.chat.ClickEvent;

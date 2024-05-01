@@ -4,6 +4,9 @@ import com.cryptomorin.xseries.XMaterial;
 import com.github.tezvn.lunix.item.ItemCreator;
 import com.github.tezvn.lunix.menu.Menu;
 import com.github.tezvn.lunix.menu.MenuElement;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -16,26 +19,34 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Getter
 public abstract class PaginationMenu<T> extends Menu {
 
+    @Getter(AccessLevel.PRIVATE)
     private int[] borderSlots =
             {36, 27, 18, 9,
                     0, 1, 2, 3, 4, 5, 6, 7, 8,
                     17, 26, 35, 44,
                     45, 46, 47, 48, 49, 50, 51, 52, 53};
+
+    @Getter(AccessLevel.PRIVATE)
     private int[] itemSlots =
             {10, 11, 12, 13, 14, 15, 16,
                     19, 20, 21, 22, 23, 24, 25,
                     28, 29, 30, 31, 32, 33, 34,
                     37, 38, 39, 40, 41, 42, 43};
+
     private int page;
 
     private Player player;
 
+    @Setter
     private boolean updateInstantly = true;
 
+    @Setter
     private long updateTick = 1;
 
+    @Getter(AccessLevel.NONE)
     private BukkitRunnable runnable;
 
     private boolean exit;
@@ -82,6 +93,7 @@ public abstract class PaginationMenu<T> extends Menu {
                 update();
             }
         };
+        this.runnable.runTaskTimerAsynchronously(getPlugin(), 0, 1);
     }
 
     public void update() {
@@ -147,14 +159,6 @@ public abstract class PaginationMenu<T> extends Menu {
         onIndexComplete();
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
     public void setPage(int page) {
         this.page = Math.max(0, Math.min(getMaxPage(), page));
     }
@@ -169,19 +173,11 @@ public abstract class PaginationMenu<T> extends Menu {
 
     public int getMaxPage() {
         return (int) getObjects().stream().filter(this::onValidate).count()
-                / ((getPage() + 1) * getItemSlots().length);
-    }
-
-    public int[] getBorderSlots() {
-        return borderSlots;
+                / ((getPage() + 1) * itemSlots.length);
     }
 
     public ItemStack getBorderItem() {
         return XMaterial.BLACK_STAINED_GLASS_PANE.parseItem();
-    }
-
-    public int[] getItemSlots() {
-        return itemSlots;
     }
 
     public ItemStack getPlaceholderItem() {
@@ -225,7 +221,7 @@ public abstract class PaginationMenu<T> extends Menu {
 
     public ItemStack getInfoButton() {
         return new ItemCreator(Objects.requireNonNull(XMaterial.PAPER.parseItem()))
-                .setDisplayName("&eTrang " + (getPage() + 1)).build();
+                .setDisplayName("&ePage " + (getPage() + 1)).build();
     }
 
     public void onInfoButtonClick(InventoryClickEvent event) {
@@ -237,26 +233,10 @@ public abstract class PaginationMenu<T> extends Menu {
 
     public ItemStack getNextButton() {
         return new ItemCreator(Objects.requireNonNull(XMaterial.PLAYER_HEAD.parseItem()))
-                .setDisplayName("&eTRANG KẾ »")
-                .addLore("&7Qua trang &e" + (getPage() + 2))
+                .setDisplayName("&eNEXT »")
+                .addLore("&7Go to page &e" + (getPage() + 2))
                 .setTexture("4ae29422db4047efdb9bac2cdae5a0719eb772fccc88a66d912320b343c341")
                 .build();
-    }
-
-    public void setUpdateInstantly(boolean updateInstantly) {
-        this.updateInstantly = updateInstantly;
-    }
-
-    public boolean isUpdateInstantly() {
-        return updateInstantly;
-    }
-
-    public long getUpdateTick() {
-        return updateTick;
-    }
-
-    public void setUpdateTick(long updateTick) {
-        this.updateTick = updateTick;
     }
 
     public void onNextButtonClick(InventoryClickEvent event) {
@@ -266,24 +246,12 @@ public abstract class PaginationMenu<T> extends Menu {
         return true;
     }
 
-    public boolean isExit() {
-        return exit;
-    }
-
     public abstract List<T> getObjects();
 
     public abstract MenuElement getObjectItem(T object);
 
     public ItemStack fillOtherSlotWhenFull() {
         return null;
-    }
-
-    public void setItemSlots(int[] itemSlots) {
-        this.itemSlots = itemSlots;
-    }
-
-    public void setBorderSlots(int[] borderSlots) {
-        this.borderSlots = borderSlots;
     }
 
     public void onIndexComplete() {
